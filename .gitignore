@@ -2,3 +2,4 @@ venv/
 *png
 *svg
 *pyc
+__pycache__/
