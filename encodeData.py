@@ -1,7 +1,6 @@
-import qrcode 
-from PIL import Image
 from constThings import REVIEW_URL
 from encoding_mode import determine_encoding_mode
+from padding import add_padding
 
 def encode_data(REVIEW_URL):
     """
@@ -40,7 +39,35 @@ def encode_data(REVIEW_URL):
         for char in REVIEW_URL:
             # Encode the Kanji character as binary using 13 bits
             encoded_data += format(char, '013b')
-            
+    
+    # Calculate the total data capacity of the QR code for version 4 with error correction level 'M'
+    data_capacity = 640
+    
+    # for anyone reading this, we can change the above from hardcoding here
+    # to actually creating a file to which data capacity can match the version and error correction level
+    # this will make the code more dynamic and flexible, but for now I will just hardcode it
+    
+    # A short trivia to understand data_capacity
+    # show how it's calculated
+    # what formula gave 640?
+    # ans. 640 = 16 * 40
+    # 16 is the number of words in a row
+    # 40 is the number of rows in a column
+    # 640 is the total number of words in the QR code
+    # each word is 1 bit
+    # so the total number of bits in the QR code is 640
+    # 640 bits is the data capacity of the QR code
+    # 640 bits is the maximum number of bits that can be stored in the QR code
+    # are these number predecided or did we calculate them?
+    # ans. these numbers are predecided
+    # how do we know that the data capacity of the QR code is 640 bits?
+    # ans. we know this from the QR code standard
+    # the data capacity of the QR code is determined by the version and error correction level
+    # the version is the size of the QR code
+    # the error correction level determines the number of error correction codewords
+    # the data capacity of the QR code is determined by the version and error correction level 
+    
+    encoded_data = add_padding(encoded_data, data_capacity)        
     return mode, encoded_data
     
     
