@@ -14,10 +14,10 @@ def determine_encoding_mode(input_data):
     kanji_chars_range = set(chr(i) for i in range(0x4E00, 0xA000))
     
     if all(char in numeric_chars for char in input_data):
-        return "numeric"
+        return "Numeric"
     elif all(char in alphanumeric_chars for char in input_data):
-        return "alphanumeric"
+        return "Alphanumeric"
     elif any(char in kanji_chars_range for char in input_data):
-        return "kanji"
+        return "Kanji"
     else:
-        return "byte"
+        return "Byte"
